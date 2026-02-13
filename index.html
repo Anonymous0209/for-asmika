@@ -6,267 +6,525 @@
 <title>For Asmika 💖</title>
 
 <style>
-body{
-  margin:0;
-  font-family:'Segoe UI',sans-serif;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  min-height:100vh;
-  background:linear-gradient(135deg,#ff9a9e,#fad0c4);
-  overflow-x:hidden;
-}
+  body{
+    margin:0;
+    font-family:'Segoe UI',sans-serif;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    min-height:100vh;
+    background:linear-gradient(135deg,#ff9a9e,#fad0c4);
+    overflow-x:hidden;
+  }
 
-.card{
-  background:white;
-  padding:28px;
-  border-radius:25px;
-  text-align:center;
-  width:92%;
-  max-width:560px;
-  box-shadow:0 15px 40px rgba(0,0,0,0.15);
-  margin:20px;
-  position:relative;
-  transition:0.3s ease;
-}
+  .card{
+    background:white;
+    padding:28px;
+    border-radius:25px;
+    text-align:center;
+    width:92%;
+    max-width:560px;
+    box-shadow:0 15px 40px rgba(0,0,0,0.15);
+    margin:20px;
+    position:relative;
+    transition:0.3s ease;
+  }
 
-.glow{
-  animation:glowPulse 1.8s ease-in-out infinite;
-}
+  /* Glow pulse after YES */
+  .glow{
+    animation:glowPulse 1.8s ease-in-out infinite;
+  }
+  @keyframes glowPulse{
+    0%,100%{box-shadow:0 18px 55px rgba(255,77,109,0.35);}
+    50%{box-shadow:0 22px 75px rgba(255,77,109,0.62);}
+  }
 
-@keyframes glowPulse{
-  0%,100%{box-shadow:0 18px 55px rgba(255,77,109,0.35);}
-  50%{box-shadow:0 22px 70px rgba(255,77,109,0.6);}
-}
+  h1{color:#ff4d6d;margin:10px 0 6px;font-size:28px;}
+  p{color:#444;margin:6px 0;font-size:15.5px;line-height:1.5;}
 
-h1{color:#ff4d6d;margin:10px 0;}
-p{color:#444;margin:6px 0;}
+  .pill{
+    background:rgba(255,77,109,0.10);
+    border:1px solid rgba(255,77,109,0.20);
+    padding:8px 14px;
+    border-radius:999px;
+    font-weight:900;
+    font-size:13px;
+    color:#ff4d6d;
+    margin-top:10px;
+    display:inline-block;
+  }
 
-.pill{
-  background:rgba(255,77,109,0.1);
-  border:1px solid rgba(255,77,109,0.2);
-  padding:8px 14px;
-  border-radius:999px;
-  font-weight:bold;
-  font-size:13px;
-  color:#ff4d6d;
-  margin-top:8px;
-  display:inline-block;
-}
+  /* Music buttons */
+  .musicRow{
+    margin-top:10px;
+    display:flex;
+    justify-content:center;
+    gap:10px;
+    flex-wrap:wrap;
+  }
+  .musicBtn{
+    background:rgba(0,0,0,0.06);
+    border:1px solid rgba(0,0,0,0.08);
+    font-weight:900;
+  }
 
-.polaroidStage{
-  margin:16px auto;
-  max-width:470px;
-  height:330px;
-  position:relative;
-}
+  /* Polaroids */
+  .polaroidStage{
+    margin:16px auto;
+    max-width:470px;
+    height:330px;
+    position:relative;
+  }
+  .polaroid{
+    display:none;
+    position:absolute;
+    inset:0;
+    margin:auto;
+    width:330px;
+    max-width:88%;
+    background:white;
+    padding:14px 14px 50px;
+    border-radius:12px;
+    box-shadow:0 14px 35px rgba(0,0,0,0.18);
+    border:1px solid rgba(0,0,0,0.06);
+  }
+  .polaroid.active{display:block;}
+  .polaroid img{width:100%;height:240px;object-fit:cover;border-radius:10px;}
+  .caption{
+    position:absolute;
+    bottom:16px;
+    left:0; right:0;
+    font-weight:900;
+    color:#444;
+    font-size:14px;
+  }
+  .polaroid:nth-child(1){transform:rotate(-2deg);}
+  .polaroid:nth-child(2){transform:rotate(2deg);}
+  .polaroid:nth-child(3){transform:rotate(-1.5deg);}
+  .polaroid:nth-child(4){transform:rotate(1.8deg);}
+  .polaroid:nth-child(5){transform:rotate(-2.5deg);}
+  .polaroid:nth-child(6){transform:rotate(2.5deg);}
 
-.polaroid{
-  display:none;
-  position:absolute;
-  inset:0;
-  margin:auto;
-  width:330px;
-  max-width:88%;
-  background:white;
-  padding:14px 14px 50px;
-  border-radius:12px;
-  box-shadow:0 14px 35px rgba(0,0,0,0.18);
-}
+  .slideNav{
+    position:absolute;
+    top:50%;
+    transform:translateY(-50%);
+    background:rgba(255,255,255,0.85);
+    border:none;
+    border-radius:50%;
+    width:40px;
+    height:40px;
+    cursor:pointer;
+    font-size:20px;
+    box-shadow:0 10px 20px rgba(0,0,0,0.12);
+    user-select:none;
+  }
+  .prev{left:5px;}
+  .next{right:5px;}
 
-.polaroid.active{display:block;}
-.polaroid img{width:100%;height:240px;object-fit:cover;border-radius:10px;}
-.caption{position:absolute;bottom:16px;width:100%;font-weight:bold;}
+  .question{font-size:22px;font-weight:900;margin-top:18px;}
 
-.polaroid:nth-child(1){transform:rotate(-2deg);}
-.polaroid:nth-child(2){transform:rotate(2deg);}
-.polaroid:nth-child(3){transform:rotate(-1.5deg);}
-.polaroid:nth-child(4){transform:rotate(1.8deg);}
-.polaroid:nth-child(5){transform:rotate(-2.5deg);}
-.polaroid:nth-child(6){transform:rotate(2.5deg);}
+  .btnWrap{
+    position:relative;
+    height:80px;
+    margin-top:10px;
+  }
+  button{
+    padding:12px 22px;
+    border:none;
+    border-radius:15px;
+    margin:10px;
+    cursor:pointer;
+    font-size:16px;
+    transition:0.2s ease;
+  }
+  .yes{background:#ff4d6d;color:white;font-weight:900;}
+  .yes:hover{background:#ff3355;transform:scale(1.05);}
+  .no{background:#eee;position:absolute;left:55%;top:0;font-weight:800;}
 
-button{
-  padding:12px 22px;
-  border:none;
-  border-radius:15px;
-  margin:10px;
-  cursor:pointer;
-  font-size:16px;
-}
+  .success{
+    display:none;
+    color:#ff4d6d;
+    font-weight:900;
+    margin-top:15px;
+    font-size:18px;
+  }
 
-.yes{background:#ff4d6d;color:white;}
-.no{background:#eee;position:absolute;left:55%;}
+  /* Heart rain */
+  @keyframes fall{
+    0%{transform:translateY(0);opacity:1;}
+    100%{transform:translateY(100vh);opacity:0;}
+  }
 
-.success{display:none;color:#ff4d6d;font-weight:bold;margin-top:15px;}
-.letter{display:none;margin-top:14px;text-align:left;background:#fff0f3;padding:14px;border-radius:15px;}
+  /* Floating text */
+  .floatText{
+    position:fixed;
+    font-weight:900;
+    z-index:9998;
+    pointer-events:none;
+    animation:floatUp 2.5s ease forwards;
+    text-shadow:0 10px 25px rgba(0,0,0,0.12);
+  }
+  @keyframes floatUp{
+    0%{opacity:0;transform:translateY(10px) scale(0.98);}
+    20%{opacity:1;}
+    100%{opacity:0;transform:translateY(-150px) scale(1.03);}
+  }
 
-.overlay{
-  position:fixed;
-  inset:0;
-  background:rgba(255,255,255,0.8);
-  backdrop-filter:blur(8px);
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  z-index:9999;
-}
+  /* PASSWORD OVERLAY */
+  .overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(255,255,255,0.78);
+    backdrop-filter:blur(10px);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    z-index:9999;
+    padding:18px;
+  }
+  .lockBox{
+    background:white;
+    padding:24px;
+    border-radius:20px;
+    text-align:center;
+    width:min(520px, 96vw);
+    box-shadow:0 18px 60px rgba(0,0,0,0.18);
+    border:1px solid rgba(0,0,0,0.06);
+  }
+  .lockBox h2{
+    margin:8px 0 4px;
+    color:#ff4d6d;
+    font-size:22px;
+  }
+  .hint{
+    margin:0 0 12px;
+    color:#555;
+    font-size:14px;
+  }
+  input{
+    padding:12px 14px;
+    border-radius:12px;
+    border:1px solid #ccc;
+    width:min(320px, 88vw);
+    font-size:15px;
+    outline:none;
+  }
+  input:focus{
+    border-color: rgba(255,77,109,0.55);
+    box-shadow: 0 0 0 4px rgba(255,77,109,0.16);
+  }
+  .unlock{
+    background:#ff4d6d;
+    color:white;
+    font-weight:900;
+  }
+  .unlock:hover{background:#ff3355;transform:translateY(-2px);}
+  #err{color:#b00020;display:none;margin-top:10px;font-size:13px;font-weight:700;}
 
-.lockBox{
-  background:white;
-  padding:25px;
-  border-radius:20px;
-  text-align:center;
-}
+  /* Love letter — envelope + typing */
+  .letterWrap{
+    display:none;
+    margin-top:16px;
+    text-align:left;
+    background: rgba(255,77,109,0.06);
+    border:1px solid rgba(255,77,109,0.22);
+    border-radius:18px;
+    overflow:hidden;
+  }
+  .envelopeTop{
+    height:22px;
+    background: linear-gradient(90deg, rgba(255,77,109,0.22), rgba(255,77,109,0.10));
+  }
+  .letter{
+    padding:14px 14px 16px;
+  }
+  .letter h3{
+    margin:0 0 10px;
+    color:#ff4d6d;
+    font-size:18px;
+  }
+  .typing{
+    white-space:pre-wrap;
+    line-height:1.6;
+    color:#333;
+    font-size:15px;
+  }
+  .sig{
+    margin-top:10px;
+    font-weight:900;
+    color:#ff4d6d;
+  }
 
-input{
-  padding:10px;
-  border-radius:10px;
-  border:1px solid #ccc;
-  margin:10px 0;
-}
+  /* Soft background blur when YES happens */
+  .blurBg{
+    position:fixed;
+    inset:0;
+    background:rgba(255,255,255,0.12);
+    backdrop-filter: blur(2px);
+    opacity:0;
+    pointer-events:none;
+    transition: opacity .6s ease;
+    z-index: 5;
+  }
+  .blurBg.on{ opacity:1; }
 
-@keyframes fall{
-  0%{transform:translateY(0);opacity:1;}
-  100%{transform:translateY(100vh);opacity:0;}
-}
-
-.floatText{
-  position:fixed;
-  font-weight:bold;
-  animation:floatUp 2.5s ease forwards;
-  z-index:9998;
-}
-
-@keyframes floatUp{
-  0%{opacity:0;transform:translateY(10px);}
-  20%{opacity:1;}
-  100%{opacity:0;transform:translateY(-150px);}
-}
+  .footer{margin-top:16px;font-size:13px;color:#777;}
 </style>
 </head>
 
 <body>
 
+<div class="blurBg" id="blurBg"></div>
+
+<!-- PASSWORD -->
 <div class="overlay" id="overlay">
   <div class="lockBox">
-    <h2>🔒 Private for Asmika</h2>
-    <input type="password" id="pw" placeholder="Enter password">
-    <br>
-    <button onclick="unlock()">Unlock</button>
-    <div id="err" style="color:red;display:none;">Wrong password 🙈</div>
+    <div style="font-size:34px;">🔒💖</div>
+    <h2>Private for Asmika</h2>
+    <div class="hint">Enter the password to unlock the surprise ✨</div>
+
+    <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;">
+      <input type="password" id="pw" placeholder="Password" />
+      <button class="unlock" id="unlockBtn">Unlock</button>
+    </div>
+
+    <div id="err">Wrong password 🙈 Try again.</div>
+    <div style="margin-top:12px;font-size:12px;color:#666;">Tip: send password separately 😌</div>
   </div>
 </div>
 
-<div class="card" id="mainCard" style="display:none;">
+<!-- MAIN -->
+<div class="card" id="mainCard" style="display:none; z-index:10;">
+  <h1>Hey Asmika 💕</h1>
+  <p>You make my days brighter, my heart softer,<br>and my life a little more magical ✨</p>
 
-<h1>Hey Asmika 💕</h1>
-<p>You make my days brighter and my heart softer ✨</p>
+  <div class="pill" id="sincePill">Since we met: --</div>
 
-<div class="pill" id="sincePill">Since we met: --</div>
+  <div class="musicRow">
+    <button class="musicBtn" id="musicBtn">🔊 Play music</button>
+    <button class="musicBtn" id="pauseBtn">🔈 Pause</button>
+  </div>
 
-<audio id="bgm" loop>
-  <source src="music.mp3" type="audio/mpeg">
-</audio>
+  <audio id="bgm" preload="auto" loop>
+    <source src="music.mp3" type="audio/mpeg">
+  </audio>
 
-<div class="polaroidStage">
-  <div class="polaroid active"><img src="photo1.jpeg"><div class="caption">Our first memory 💖</div></div>
-  <div class="polaroid"><img src="photo2.jpeg"><div class="caption">That smile 🥹</div></div>
-  <div class="polaroid"><img src="photo3.jpeg"><div class="caption">My favorite moment ✨</div></div>
-  <div class="polaroid"><img src="photo4.jpeg"><div class="caption">Always you 🌷</div></div>
-  <div class="polaroid"><img src="photo5.jpeg"><div class="caption">My happy place 💕</div></div>
-  <div class="polaroid"><img src="photo6.jpeg"><div class="caption">Forever us 💘</div></div>
-</div>
+  <div class="polaroidStage">
+    <div class="polaroid active"><img src="photo1.jpeg" alt="Photo 1"><div class="caption">Our first memory 💖</div></div>
+    <div class="polaroid"><img src="photo2.jpeg" alt="Photo 2"><div class="caption">That smile 🥹</div></div>
+    <div class="polaroid"><img src="photo3.jpeg" alt="Photo 3"><div class="caption">My favorite moment ✨</div></div>
+    <div class="polaroid"><img src="photo4.jpeg" alt="Photo 4"><div class="caption">Always you 🌷</div></div>
+    <div class="polaroid"><img src="photo5.jpeg" alt="Photo 5"><div class="caption">My happy place 💕</div></div>
+    <div class="polaroid"><img src="photo6.jpeg" alt="Photo 6"><div class="caption">Forever us 💘</div></div>
 
-<h3>Will you be my Valentine? 💘</h3>
+    <button class="slideNav prev" onclick="changeSlide(-1)" aria-label="Previous">‹</button>
+    <button class="slideNav next" onclick="changeSlide(1)" aria-label="Next">›</button>
+  </div>
 
-<div style="position:relative;height:80px;">
-<button class="yes" onclick="sayYes()">Yes 💖</button>
-<button class="no" id="noBtn">No 🙈</button>
-</div>
+  <div class="question">Will you be my Valentine? 💘</div>
 
-<div class="success" id="successMsg">YAYYY 🥹💖 You just made Sandip the happiest person alive!</div>
+  <div class="btnWrap">
+    <button class="yes" onclick="sayYes()">Yes 💖</button>
+    <button class="no" id="noBtn">No 🙈</button>
+  </div>
 
-<div class="letter" id="letter">
-<h3>💌 A little love letter</h3>
-<p>Asmika,</p>
-<p>I’m grateful for every moment with you. Your smile makes everything better. I’ll always choose you, again and again. 🌷</p>
-<p><b>— Sandip 💖</b></p>
-</div>
+  <div class="success" id="successMsg">
+    YAYYYY 🥹💖<br>
+    You just made Sandip the happiest person alive!
+  </div>
 
+  <!-- LOVE LETTER (hidden) -->
+  <div class="letterWrap" id="letterWrap">
+    <div class="envelopeTop"></div>
+    <div class="letter">
+      <h3>💌 My Heart to Yours</h3>
+      <div class="typing" id="typing"></div>
+      <div class="sig" id="sig" style="display:none;">Forever yours,<br>Sandip 💖</div>
+    </div>
+  </div>
+
+  <div class="footer">Made with love by Sandip 💌</div>
 </div>
 
 <script>
-const PASSWORD="asmika1084";
-const MET_DATE="2025-03-27T00:00:00+05:45";
+/* ===== SETTINGS (already set as you asked) ===== */
+const PASSWORD = "asmika1084";
+const MET_DATE = "2025-03-27T00:00:00+05:45"; // Nepal time
+
+/* ===== PASSWORD GATE ===== */
+const overlay = document.getElementById("overlay");
+const mainCard = document.getElementById("mainCard");
+const pw = document.getElementById("pw");
+const err = document.getElementById("err");
+const unlockBtn = document.getElementById("unlockBtn");
 
 function unlock(){
-  if(document.getElementById("pw").value===PASSWORD){
-    overlay.style.display="none";
-    mainCard.style.display="block";
+  if ((pw.value || "").trim() === PASSWORD){
+    overlay.style.display = "none";
+    mainCard.style.display = "block";
+    err.style.display = "none";
     startCounter();
-    fadeInMusic();
-  }else{
-    err.style.display="block";
+    fadeInMusic(); // tries after user click
+  } else {
+    err.style.display = "block";
+    pw.select();
+  }
+}
+unlockBtn.addEventListener("click", unlock);
+pw.addEventListener("keydown", (e) => { if (e.key === "Enter") unlock(); });
+
+/* ===== MUSIC (fade in) ===== */
+const bgm = document.getElementById("bgm");
+const musicBtn = document.getElementById("musicBtn");
+const pauseBtn = document.getElementById("pauseBtn");
+let fadeTimer = null;
+
+function fadeInMusic(){
+  try{
+    if (fadeTimer) clearInterval(fadeTimer);
+    bgm.volume = 0;
+    bgm.muted = false;
+    bgm.play().catch(()=>{});
+    fadeTimer = setInterval(() => {
+      if (bgm.paused) return;
+      bgm.volume = Math.min(1, bgm.volume + 0.06);
+      if (bgm.volume >= 0.9) clearInterval(fadeTimer);
+    }, 140);
+  }catch(e){}
+}
+musicBtn.addEventListener("click", fadeInMusic);
+pauseBtn.addEventListener("click", () => {
+  if (fadeTimer) clearInterval(fadeTimer);
+  bgm.pause();
+});
+
+/* ===== SINCE WE MET (days + hours) ===== */
+const sincePill = document.getElementById("sincePill");
+function formatDuration(ms){
+  const totalSec = Math.floor(ms / 1000);
+  const days = Math.floor(totalSec / (3600*24));
+  const hours = Math.floor((totalSec % (3600*24)) / 3600);
+  const mins = Math.floor((totalSec % 3600) / 60);
+  return `${days}d ${hours}h ${mins}m`;
+}
+function startCounter(){
+  const met = new Date(MET_DATE).getTime();
+  const tick = () => {
+    const diff = Math.max(0, Date.now() - met);
+    sincePill.textContent = `Since we met: ${formatDuration(diff)} 💕`;
+  };
+  tick();
+  setInterval(tick, 30000);
+}
+
+/* ===== SLIDES ===== */
+const slides = document.querySelectorAll(".polaroid");
+let current = 0;
+function changeSlide(step){
+  slides[current].classList.remove("active");
+  current = (current + step + slides.length) % slides.length;
+  slides[current].classList.add("active");
+}
+
+/* ===== NO BUTTON (desktop + mobile) ===== */
+const noBtn = document.getElementById("noBtn");
+function moveNoButton(){
+  const x = Math.random()*220 - 110;
+  const y = Math.random()*120 - 60;
+  noBtn.style.transform = `translate(${x}px,${y}px)`;
+}
+noBtn.addEventListener("mouseover", moveNoButton);
+noBtn.addEventListener("touchstart", function(e){
+  e.preventDefault();
+  moveNoButton();
+}, { passive:false });
+
+/* ===== YES: glow + heart rain + floating text + love letter typing + blur ===== */
+const blurBg = document.getElementById("blurBg");
+const letterWrap = document.getElementById("letterWrap");
+const typingEl = document.getElementById("typing");
+const sigEl = document.getElementById("sig");
+
+const LOVE_LETTER_TEXT =
+`Asmika,
+
+From the moment you came into my life, everything started feeling a little softer,
+a little brighter, and a lot more meaningful.
+
+Your smile has this magic that calms me.
+Your voice feels like home.
+And every memory with you becomes my favorite one.
+
+I don’t just want today.
+I want the silly laughs, the random talks, the quiet moments —
+and all the future days with you.
+
+If loving you means choosing you again and again,
+then I promise… I will always choose you. 💕`;
+
+let typed = false;
+
+function sayYes(){
+  document.getElementById("successMsg").style.display = "block";
+  document.getElementById("mainCard").classList.add("glow");
+  blurBg.classList.add("on");
+
+  heartRain();
+  floatCoupleText();
+  fadeInMusic();
+
+  // show + type letter once
+  if (!typed){
+    typed = true;
+    letterWrap.style.display = "block";
+    typeLetter(LOVE_LETTER_TEXT, 18);
+  } else {
+    letterWrap.style.display = "block";
   }
 }
 
-const bgm=document.getElementById("bgm");
-function fadeInMusic(){
-  bgm.volume=0;
-  bgm.play();
-  let fade=setInterval(()=>{
-    if(bgm.volume<0.9){bgm.volume+=0.05;}
-    else clearInterval(fade);
-  },200);
+function typeLetter(text, speed){
+  typingEl.textContent = "";
+  sigEl.style.display = "none";
+  let i = 0;
+  const timer = setInterval(() => {
+    typingEl.textContent += text[i] || "";
+    i++;
+    if (i > text.length){
+      clearInterval(timer);
+      sigEl.style.display = "block";
+    }
+  }, speed);
 }
 
-function startCounter(){
-  const met=new Date(MET_DATE).getTime();
-  setInterval(()=>{
-    const now=Date.now();
-    const diff=now-met;
-    const days=Math.floor(diff/(1000*60*60*24));
-    sincePill.textContent="Since we met: "+days+" days 💕";
-  },1000);
-}
-
-function sayYes(){
-  successMsg.style.display="block";
-  letter.style.display="block";
-  mainCard.classList.add("glow");
-  heartRain();
-  floatText();
-  fadeInMusic();
+function floatCoupleText(){
+  for (let i = 0; i < 4; i++){
+    const t = document.createElement("div");
+    t.className = "floatText";
+    t.textContent = "Asmika ❤️ Sandip";
+    t.style.left = (35 + Math.random()*30) + "vw";
+    t.style.top = (58 + Math.random()*10) + "vh";
+    t.style.fontSize = (18 + Math.random()*10) + "px";
+    document.body.appendChild(t);
+    setTimeout(() => t.remove(), 2600);
+  }
 }
 
 function heartRain(){
-  for(let i=0;i<50;i++){
-    const h=document.createElement("div");
-    h.innerText="💖";
-    h.style.position="fixed";
-    h.style.left=Math.random()*100+"vw";
-    h.style.top="-10px";
-    h.style.fontSize=(20+Math.random()*20)+"px";
-    h.style.animation="fall 3s linear forwards";
+  for(let i=0; i<60; i++){
+    const h = document.createElement("div");
+    h.textContent = "💖";
+    h.style.position = "fixed";
+    h.style.left = (Math.random()*100) + "vw";
+    h.style.top = "-15px";
+    h.style.fontSize = (18 + Math.random()*22) + "px";
+    h.style.zIndex = "9999";
+    h.style.pointerEvents = "none";
+    h.style.animation = `fall ${2.6 + Math.random()*1.4}s linear forwards`;
     document.body.appendChild(h);
-    setTimeout(()=>h.remove(),3000);
+    setTimeout(()=>h.remove(), 4500);
   }
-}
-
-function floatText(){
-  const t=document.createElement("div");
-  t.className="floatText";
-  t.style.left="40vw";
-  t.style.top="60vh";
-  t.innerText="Asmika ❤️ Sandip";
-  document.body.appendChild(t);
-  setTimeout(()=>t.remove(),2500);
-}
-
-noBtn.addEventListener("mouseover",()=>moveNo());
-noBtn.addEventListener("touchstart",(e)=>{e.preventDefault();moveNo();});
-function moveNo(){
-  noBtn.style.transform="translate("+ (Math.random()*200-100)+"px,"+(Math.random()*100-50)+"px)";
 }
 </script>
 
