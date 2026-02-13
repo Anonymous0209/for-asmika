@@ -6,460 +6,269 @@
 <title>For Asmika 💖</title>
 
 <style>
-  body{
-    margin:0;
-    font-family: 'Segoe UI', sans-serif;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    min-height:100vh;
-    background: linear-gradient(135deg,#ff9a9e,#fad0c4);
-  }
+body{
+  margin:0;
+  font-family:'Segoe UI',sans-serif;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  min-height:100vh;
+  background:linear-gradient(135deg,#ff9a9e,#fad0c4);
+  overflow-x:hidden;
+}
 
-  .card{
-    background:white;
-    padding:28px;
-    border-radius:25px;
-    text-align:center;
-    width:92%;
-    max-width:560px;
-    box-shadow:0 15px 40px rgba(0,0,0,0.15);
-    margin:20px;
-    position:relative;
-  }
+.card{
+  background:white;
+  padding:28px;
+  border-radius:25px;
+  text-align:center;
+  width:92%;
+  max-width:560px;
+  box-shadow:0 15px 40px rgba(0,0,0,0.15);
+  margin:20px;
+  position:relative;
+  transition:0.3s ease;
+}
 
-  h1{
-    font-size:28px;
-    margin:10px 0 6px;
-    color:#ff4d6d;
-  }
+.glow{
+  animation:glowPulse 1.8s ease-in-out infinite;
+}
 
-  p{
-    font-size:15.5px;
-    color:#444;
-    margin: 6px 0;
-  }
+@keyframes glowPulse{
+  0%,100%{box-shadow:0 18px 55px rgba(255,77,109,0.35);}
+  50%{box-shadow:0 22px 70px rgba(255,77,109,0.6);}
+}
 
-  .question{
-    font-size:22px;
-    font-weight:bold;
-    margin-top:18px;
-  }
+h1{color:#ff4d6d;margin:10px 0;}
+p{color:#444;margin:6px 0;}
 
-  .buttons{
-    margin-top:18px;
-    position:relative;
-    height:80px;
-  }
+.pill{
+  background:rgba(255,77,109,0.1);
+  border:1px solid rgba(255,77,109,0.2);
+  padding:8px 14px;
+  border-radius:999px;
+  font-weight:bold;
+  font-size:13px;
+  color:#ff4d6d;
+  margin-top:8px;
+  display:inline-block;
+}
 
-  button{
-    padding:12px 22px;
-    border:none;
-    border-radius:15px;
-    font-size:16px;
-    cursor:pointer;
-    margin:10px;
-    transition:0.2s ease;
-  }
+.polaroidStage{
+  margin:16px auto;
+  max-width:470px;
+  height:330px;
+  position:relative;
+}
 
-  .yes{ background:#ff4d6d; color:white; }
-  .yes:hover{ background:#ff3355; transform:scale(1.05); }
+.polaroid{
+  display:none;
+  position:absolute;
+  inset:0;
+  margin:auto;
+  width:330px;
+  max-width:88%;
+  background:white;
+  padding:14px 14px 50px;
+  border-radius:12px;
+  box-shadow:0 14px 35px rgba(0,0,0,0.18);
+}
 
-  .no{
-    background:#eee;
-    position:absolute;
-    left:55%;
-    top:0;
-  }
+.polaroid.active{display:block;}
+.polaroid img{width:100%;height:240px;object-fit:cover;border-radius:10px;}
+.caption{position:absolute;bottom:16px;width:100%;font-weight:bold;}
 
-  .success{
-    display:none;
-    font-size:18px;
-    margin-top:16px;
-    color:#ff4d6d;
-    font-weight:700;
-  }
+.polaroid:nth-child(1){transform:rotate(-2deg);}
+.polaroid:nth-child(2){transform:rotate(2deg);}
+.polaroid:nth-child(3){transform:rotate(-1.5deg);}
+.polaroid:nth-child(4){transform:rotate(1.8deg);}
+.polaroid:nth-child(5){transform:rotate(-2.5deg);}
+.polaroid:nth-child(6){transform:rotate(2.5deg);}
 
-  .footer{
-    margin-top:16px;
-    font-size:13px;
-    color:#777;
-  }
+button{
+  padding:12px 22px;
+  border:none;
+  border-radius:15px;
+  margin:10px;
+  cursor:pointer;
+  font-size:16px;
+}
 
-  /* POLAROID SECTION */
-  .polaroidStage{
-    margin: 16px auto;
-    width:100%;
-    max-width:470px;
-    position:relative;
-    height:330px;
-  }
+.yes{background:#ff4d6d;color:white;}
+.no{background:#eee;position:absolute;left:55%;}
 
-  .polaroid{
-    display:none;
-    position:absolute;
-    inset:0;
-    margin:auto;
-    width:330px;
-    max-width:88%;
-    background:white;
-    border-radius:12px;
-    padding:14px 14px 50px;
-    box-shadow:0 14px 35px rgba(0,0,0,0.18);
-    border:1px solid rgba(0,0,0,0.06);
-  }
-  .polaroid.active{ display:block; }
+.success{display:none;color:#ff4d6d;font-weight:bold;margin-top:15px;}
+.letter{display:none;margin-top:14px;text-align:left;background:#fff0f3;padding:14px;border-radius:15px;}
 
-  .polaroid img{
-    width:100%;
-    height:240px;
-    object-fit:cover;
-    border-radius:10px;
-  }
+.overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(255,255,255,0.8);
+  backdrop-filter:blur(8px);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  z-index:9999;
+}
 
-  .caption{
-    position:absolute;
-    bottom:16px;
-    left:0;
-    right:0;
-    text-align:center;
-    font-size:14px;
-    color:#444;
-    font-weight:700;
-  }
+.lockBox{
+  background:white;
+  padding:25px;
+  border-radius:20px;
+  text-align:center;
+}
 
-  /* Cute tilt */
-  .polaroid:nth-child(1){ transform:rotate(-2deg); }
-  .polaroid:nth-child(2){ transform:rotate(2deg); }
-  .polaroid:nth-child(3){ transform:rotate(-1.5deg); }
-  .polaroid:nth-child(4){ transform:rotate(1.8deg); }
-  .polaroid:nth-child(5){ transform:rotate(-2.5deg); }
-  .polaroid:nth-child(6){ transform:rotate(2.5deg); }
+input{
+  padding:10px;
+  border-radius:10px;
+  border:1px solid #ccc;
+  margin:10px 0;
+}
 
-  .slideNav{
-    position:absolute;
-    top:50%;
-    transform:translateY(-50%);
-    background:rgba(255,255,255,0.85);
-    border:none;
-    border-radius:50%;
-    width:40px;
-    height:40px;
-    cursor:pointer;
-    font-size:20px;
-    box-shadow:0 10px 20px rgba(0,0,0,0.12);
-    user-select:none;
-  }
-  .prev{ left:5px; }
-  .next{ right:5px; }
+@keyframes fall{
+  0%{transform:translateY(0);opacity:1;}
+  100%{transform:translateY(100vh);opacity:0;}
+}
 
-  /* Heart rain */
-  @keyframes fall {
-    0% { transform: translateY(0); opacity: 1; }
-    100% { transform: translateY(100vh); opacity: 0; }
-  }
+.floatText{
+  position:fixed;
+  font-weight:bold;
+  animation:floatUp 2.5s ease forwards;
+  z-index:9998;
+}
 
-  /* PASSWORD OVERLAY */
-  .overlay{
-    position:fixed;
-    inset:0;
-    background: rgba(255,255,255,0.65);
-    backdrop-filter: blur(10px);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    padding:18px;
-    z-index:99999;
-  }
-  .lockCard{
-    width:min(520px, 96vw);
-    background: rgba(255,255,255,0.92);
-    border:1px solid rgba(0,0,0,0.06);
-    border-radius:22px;
-    box-shadow:0 18px 60px rgba(0,0,0,0.18);
-    padding:22px;
-    text-align:center;
-  }
-  .lockTitle{
-    font-size:22px;
-    font-weight:900;
-    color:#ff4d6d;
-    margin:6px 0 2px;
-  }
-  .lockHint{
-    font-size:14px;
-    color:#555;
-    margin:0 0 14px;
-  }
-  .lockRow{
-    display:flex;
-    gap:10px;
-    justify-content:center;
-    flex-wrap:wrap;
-  }
-  .lockInput{
-    padding:12px 14px;
-    border-radius:14px;
-    border:1px solid rgba(0,0,0,0.12);
-    font-size:15px;
-    min-width:min(320px, 88vw);
-    outline:none;
-  }
-  .lockInput:focus{
-    border-color: rgba(255,77,109,0.55);
-    box-shadow: 0 0 0 4px rgba(255,77,109,0.16);
-  }
-  .unlock{
-    background:#ff4d6d;
-    color:#fff;
-    font-weight:800;
-  }
-  .unlock:hover{ background:#ff3355; transform: translateY(-2px); }
-  .err{
-    margin-top:10px;
-    font-size:13px;
-    color:#b00020;
-    display:none;
-  }
-
-  /* LOVE LETTER */
-  .letter{
-    display:none;
-    margin-top:14px;
-    text-align:left;
-    background: rgba(255,77,109,0.08);
-    border:1px solid rgba(255,77,109,0.22);
-    border-radius:18px;
-    padding:14px 14px;
-  }
-  .letter h2{
-    margin:0 0 8px;
-    color:#ff4d6d;
-    font-size:18px;
-  }
-  .letter p{
-    margin:8px 0;
-    font-size:15px;
-    line-height:1.55;
-    color:#333;
-  }
-  .sig{
-    margin-top:10px;
-    font-weight:800;
-    color:#ff4d6d;
-  }
-
-  /* Music button */
-  .musicRow{
-    display:flex;
-    justify-content:center;
-    gap:10px;
-    flex-wrap:wrap;
-    margin-top:10px;
-  }
-  .musicBtn{
-    background: rgba(0,0,0,0.06);
-    border:1px solid rgba(0,0,0,0.08);
-    font-weight:800;
-  }
+@keyframes floatUp{
+  0%{opacity:0;transform:translateY(10px);}
+  20%{opacity:1;}
+  100%{opacity:0;transform:translateY(-150px);}
+}
 </style>
 </head>
 
 <body>
 
-<!-- PASSWORD GATE -->
 <div class="overlay" id="overlay">
-  <div class="lockCard">
-    <div style="font-size:34px;">🔒💖</div>
-    <div class="lockTitle">Private for Asmika</div>
-    <div class="lockHint">Enter the password to unlock the surprise ✨</div>
-
-    <div class="lockRow">
-      <input class="lockInput" id="pw" type="password" placeholder="Password" />
-      <button class="unlock" id="unlockBtn">Unlock</button>
-    </div>
-
-    <div class="err" id="err">Oops—wrong password 🙈 Try again.</div>
-
-    <div style="margin-top:12px; font-size:12px; color:#666;">
-      Tip: If you share the link, share the password separately 😌
-    </div>
+  <div class="lockBox">
+    <h2>🔒 Private for Asmika</h2>
+    <input type="password" id="pw" placeholder="Enter password">
+    <br>
+    <button onclick="unlock()">Unlock</button>
+    <div id="err" style="color:red;display:none;">Wrong password 🙈</div>
   </div>
 </div>
 
-<!-- MAIN PAGE -->
 <div class="card" id="mainCard" style="display:none;">
-  <h1>Hey Asmika 💕</h1>
-  <p>
-    You make my days brighter, my heart softer,<br>
-    and my life a little more magical ✨
-  </p>
 
-  <div class="musicRow">
-    <button class="musicBtn" id="musicBtn">🔊 Play music</button>
-    <button class="musicBtn" id="muteBtn">🔈 Pause</button>
-  </div>
+<h1>Hey Asmika 💕</h1>
+<p>You make my days brighter and my heart softer ✨</p>
 
-  <!-- Put music.mp3 in the SAME GitHub folder -->
-  <audio id="bgm" preload="auto" loop>
-    <source src="music.mp3" type="audio/mpeg">
-  </audio>
+<div class="pill" id="sincePill">Since we met: --</div>
 
-  <div class="polaroidStage">
-    <div class="polaroid active">
-      <img src="photo1.jpeg" alt="Photo 1">
-      <div class="caption">Our first memory 💖</div>
-    </div>
+<audio id="bgm" loop>
+  <source src="music.mp3" type="audio/mpeg">
+</audio>
 
-    <div class="polaroid">
-      <img src="photo2.jpeg" alt="Photo 2">
-      <div class="caption">That smile 🥹</div>
-    </div>
+<div class="polaroidStage">
+  <div class="polaroid active"><img src="photo1.jpeg"><div class="caption">Our first memory 💖</div></div>
+  <div class="polaroid"><img src="photo2.jpeg"><div class="caption">That smile 🥹</div></div>
+  <div class="polaroid"><img src="photo3.jpeg"><div class="caption">My favorite moment ✨</div></div>
+  <div class="polaroid"><img src="photo4.jpeg"><div class="caption">Always you 🌷</div></div>
+  <div class="polaroid"><img src="photo5.jpeg"><div class="caption">My happy place 💕</div></div>
+  <div class="polaroid"><img src="photo6.jpeg"><div class="caption">Forever us 💘</div></div>
+</div>
 
-    <div class="polaroid">
-      <img src="photo3.jpeg" alt="Photo 3">
-      <div class="caption">My favorite moment ✨</div>
-    </div>
+<h3>Will you be my Valentine? 💘</h3>
 
-    <div class="polaroid">
-      <img src="photo4.jpeg" alt="Photo 4">
-      <div class="caption">Always you 🌷</div>
-    </div>
+<div style="position:relative;height:80px;">
+<button class="yes" onclick="sayYes()">Yes 💖</button>
+<button class="no" id="noBtn">No 🙈</button>
+</div>
 
-    <div class="polaroid">
-      <img src="photo5.jpeg" alt="Photo 5">
-      <div class="caption">My happy place 💕</div>
-    </div>
+<div class="success" id="successMsg">YAYYY 🥹💖 You just made Sandip the happiest person alive!</div>
 
-    <div class="polaroid">
-      <img src="photo6.jpeg" alt="Photo 6">
-      <div class="caption">Forever us 💘</div>
-    </div>
+<div class="letter" id="letter">
+<h3>💌 A little love letter</h3>
+<p>Asmika,</p>
+<p>I’m grateful for every moment with you. Your smile makes everything better. I’ll always choose you, again and again. 🌷</p>
+<p><b>— Sandip 💖</b></p>
+</div>
 
-    <button class="slideNav prev" onclick="changeSlide(-1)" aria-label="Previous photo">‹</button>
-    <button class="slideNav next" onclick="changeSlide(1)" aria-label="Next photo">›</button>
-  </div>
-
-  <div class="question">Will you be my Valentine? 💘</div>
-
-  <div class="buttons">
-    <button class="yes" onclick="sayYes()">Yes 💖</button>
-    <button class="no" id="noBtn">No 🙈</button>
-  </div>
-
-  <div class="success" id="successMsg">
-    YAYYYY 🥹💖<br>
-    You just made Sandip the happiest person alive!<br>
-    Get ready for cute dates and unlimited love 🌹✨
-  </div>
-
-  <!-- Hidden Love Letter (shows after YES) -->
-  <div class="letter" id="letter">
-    <h2>💌 A tiny love letter</h2>
-    <p>Asmika,</p>
-    <p>
-      I just want you to know you mean a lot to me. Your presence makes everything feel lighter,
-      and your smile is honestly one of my favorite things in the world.
-    </p>
-    <p>
-      I’m grateful for every moment with you — the simple talks, the laughs, and the little memories
-      that stay with me. I’ll keep choosing you, again and again. 🌷
-    </p>
-    <p class="sig">— Sandip 💖</p>
-  </div>
-
-  <div class="footer">Made with love by Sandip 💌</div>
 </div>
 
 <script>
-/* ========= PASSWORD (simple gate) =========
-   NOTE: This is NOT strong security on GitHub Pages.
-   Anyone technical can view the code and find the password.
-   But it's perfect for a cute surprise.
-*/
-const PASSWORD = "asmika1084"; // <-- CHANGE THIS PASSWORD (no spaces)
-
-const overlay = document.getElementById("overlay");
-const mainCard = document.getElementById("mainCard");
-const pw = document.getElementById("pw");
-const err = document.getElementById("err");
-const unlockBtn = document.getElementById("unlockBtn");
+const PASSWORD="asmika1084";
+const MET_DATE="2025-03-27T00:00:00+05:45";
 
 function unlock(){
-  if ((pw.value || "").trim() === PASSWORD){
-    overlay.style.display = "none";
-    mainCard.style.display = "block";
-    err.style.display = "none";
-    // try to start music after user interaction (allowed)
-    tryPlayMusic();
-  } else {
-    err.style.display = "block";
-    pw.select();
+  if(document.getElementById("pw").value===PASSWORD){
+    overlay.style.display="none";
+    mainCard.style.display="block";
+    startCounter();
+    fadeInMusic();
+  }else{
+    err.style.display="block";
   }
 }
-unlockBtn.addEventListener("click", unlock);
-pw.addEventListener("keydown", (e) => { if (e.key === "Enter") unlock(); });
 
-/* ========= MUSIC ========= */
-const bgm = document.getElementById("bgm");
-const musicBtn = document.getElementById("musicBtn");
-const muteBtn = document.getElementById("muteBtn");
-
-function tryPlayMusic(){
-  bgm.play().catch(()=>{ /* Autoplay may be blocked; user can press Play */ });
-}
-musicBtn.addEventListener("click", tryPlayMusic);
-muteBtn.addEventListener("click", () => bgm.pause());
-
-/* ========= SLIDES ========= */
-const slides = document.querySelectorAll(".polaroid");
-let current = 0;
-
-function changeSlide(step){
-  slides[current].classList.remove("active");
-  current = (current + step + slides.length) % slides.length;
-  slides[current].classList.add("active");
+const bgm=document.getElementById("bgm");
+function fadeInMusic(){
+  bgm.volume=0;
+  bgm.play();
+  let fade=setInterval(()=>{
+    if(bgm.volume<0.9){bgm.volume+=0.05;}
+    else clearInterval(fade);
+  },200);
 }
 
-/* ========= YES BUTTON + HEART RAIN + LETTER ========= */
+function startCounter(){
+  const met=new Date(MET_DATE).getTime();
+  setInterval(()=>{
+    const now=Date.now();
+    const diff=now-met;
+    const days=Math.floor(diff/(1000*60*60*24));
+    sincePill.textContent="Since we met: "+days+" days 💕";
+  },1000);
+}
+
 function sayYes(){
-  document.getElementById("successMsg").style.display = "block";
-  document.getElementById("letter").style.display = "block";
+  successMsg.style.display="block";
+  letter.style.display="block";
+  mainCard.classList.add("glow");
   heartRain();
+  floatText();
+  fadeInMusic();
 }
 
-/* ========= NO BUTTON (Desktop + Mobile) ========= */
-const noBtn = document.getElementById("noBtn");
-
-function moveNoButton(){
-  const x = Math.random()*250 - 125;
-  const y = Math.random()*150 - 75;
-  noBtn.style.transform = `translate(${x}px,${y}px)`;
-}
-noBtn.addEventListener("mouseover", moveNoButton);
-noBtn.addEventListener("touchstart", function(e){
-  e.preventDefault();
-  moveNoButton();
-}, { passive:false });
-
-/* ========= HEART RAIN ========= */
 function heartRain(){
-  for(let i=0; i<55; i++){
-    const heart = document.createElement("div");
-    heart.textContent = "💖";
-    heart.style.position = "fixed";
-    heart.style.top = "-20px";
-    heart.style.left = (Math.random() * 100) + "vw";
-    heart.style.fontSize = (18 + Math.random() * 22) + "px";
-    heart.style.zIndex = "9999";
-    heart.style.pointerEvents = "none";
-    heart.style.animation = `fall ${2.6 + Math.random()*1.4}s linear forwards`;
-    document.body.appendChild(heart);
-    setTimeout(() => heart.remove(), 4500);
+  for(let i=0;i<50;i++){
+    const h=document.createElement("div");
+    h.innerText="💖";
+    h.style.position="fixed";
+    h.style.left=Math.random()*100+"vw";
+    h.style.top="-10px";
+    h.style.fontSize=(20+Math.random()*20)+"px";
+    h.style.animation="fall 3s linear forwards";
+    document.body.appendChild(h);
+    setTimeout(()=>h.remove(),3000);
   }
+}
+
+function floatText(){
+  const t=document.createElement("div");
+  t.className="floatText";
+  t.style.left="40vw";
+  t.style.top="60vh";
+  t.innerText="Asmika ❤️ Sandip";
+  document.body.appendChild(t);
+  setTimeout(()=>t.remove(),2500);
+}
+
+noBtn.addEventListener("mouseover",()=>moveNo());
+noBtn.addEventListener("touchstart",(e)=>{e.preventDefault();moveNo();});
+function moveNo(){
+  noBtn.style.transform="translate("+ (Math.random()*200-100)+"px,"+(Math.random()*100-50)+"px)";
 }
 </script>
 
 </body>
 </html>
-
