@@ -64,6 +64,7 @@
     font-weight:900;
   }
 
+  /* Polaroids */
   .polaroidStage{
     margin:16px auto;
     max-width:470px;
@@ -71,7 +72,6 @@
     position:relative;
   }
   .polaroid{
-    display:none;
     position:absolute;
     inset:0;
     margin:auto;
@@ -82,8 +82,16 @@
     border-radius:12px;
     box-shadow:0 14px 35px rgba(0,0,0,0.18);
     border:1px solid rgba(0,0,0,0.06);
+    opacity:0;
+    transform: translateY(6px) scale(0.995);
+    pointer-events:none;
+    transition: opacity .55s ease, transform .55s ease;
   }
-  .polaroid.active{display:block;}
+  .polaroid.active{
+    opacity:1;
+    transform: translateY(0) scale(1);
+    pointer-events:auto;
+  }
   .polaroid img{width:100%;height:240px;object-fit:cover;border-radius:10px;}
   .caption{
     position:absolute;
@@ -93,12 +101,14 @@
     color:#444;
     font-size:14px;
   }
-  .polaroid:nth-child(1){transform:rotate(-2deg);}
-  .polaroid:nth-child(2){transform:rotate(2deg);}
-  .polaroid:nth-child(3){transform:rotate(-1.5deg);}
-  .polaroid:nth-child(4){transform:rotate(1.8deg);}
-  .polaroid:nth-child(5){transform:rotate(-2.5deg);}
-  .polaroid:nth-child(6){transform:rotate(2.5deg);}
+
+  /* Cute tilt (keeps vibe) */
+  .polaroid:nth-child(1){rotate:-2deg;}
+  .polaroid:nth-child(2){rotate:2deg;}
+  .polaroid:nth-child(3){rotate:-1.5deg;}
+  .polaroid:nth-child(4){rotate:1.8deg;}
+  .polaroid:nth-child(5){rotate:-2.5deg;}
+  .polaroid:nth-child(6){rotate:2.5deg;}
 
   .slideNav{
     position:absolute;
@@ -113,6 +123,7 @@
     font-size:20px;
     box-shadow:0 10px 20px rgba(0,0,0,0.12);
     user-select:none;
+    z-index:3;
   }
   .prev{left:5px;}
   .next{right:5px;}
@@ -164,6 +175,7 @@
     100%{opacity:0;transform:translateY(-150px) scale(1.03);}
   }
 
+  /* Password overlay */
   .overlay{
     position:fixed;
     inset:0;
@@ -214,6 +226,7 @@
   .unlock:hover{background:#ff3355;transform:translateY(-2px);}
   #err{color:#b00020;display:none;margin-top:10px;font-size:13px;font-weight:700;}
 
+  /* Love letter */
   .letterWrap{
     display:none;
     margin-top:16px;
@@ -227,25 +240,10 @@
     height:22px;
     background: linear-gradient(90deg, rgba(255,77,109,0.22), rgba(255,77,109,0.10));
   }
-  .letter{
-    padding:14px 14px 16px;
-  }
-  .letter h3{
-    margin:0 0 10px;
-    color:#ff4d6d;
-    font-size:18px;
-  }
-  .typing{
-    white-space:pre-wrap;
-    line-height:1.6;
-    color:#333;
-    font-size:15px;
-  }
-  .sig{
-    margin-top:10px;
-    font-weight:900;
-    color:#ff4d6d;
-  }
+  .letter{ padding:14px 14px 16px; }
+  .letter h3{ margin:0 0 10px; color:#ff4d6d; font-size:18px; }
+  .typing{ white-space:pre-wrap; line-height:1.6; color:#333; font-size:15px; }
+  .sig{ margin-top:10px; font-weight:900; color:#ff4d6d; }
 
   .blurBg{
     position:fixed;
@@ -335,8 +333,9 @@
 </div>
 
 <script>
+/* SETTINGS */
 const PASSWORD = "asmika1084";
-const MET_DATE = "2025-03-27T00:00:00+05:45";
+const MET_DATE = "2025-03-27T00:00:00+05:45"; // Nepal time
 
 /* PASSWORD */
 const overlay = document.getElementById("overlay");
@@ -351,6 +350,7 @@ function unlock(){
     mainCard.style.display = "block";
     err.style.display = "none";
     startCounter();
+    startAutoSlide();    // ✅ start slideshow after unlock
     fadeInMusic();
   } else {
     err.style.display = "block";
@@ -404,16 +404,36 @@ function startCounter(){
   setInterval(tick, 30000);
 }
 
-/* Slides */
+/* SLIDES + AUTO SLIDESHOW */
 const slides = document.querySelectorAll(".polaroid");
 let current = 0;
-function changeSlide(step){
+let slideInterval = null;
+
+function showSlide(index){
   slides[current].classList.remove("active");
-  current = (current + step + slides.length) % slides.length;
+  current = index;
   slides[current].classList.add("active");
 }
 
-/* No button */
+function changeSlide(step){
+  const nextIndex = (current + step + slides.length) % slides.length;
+  showSlide(nextIndex);
+  resetAutoSlide();
+}
+
+function startAutoSlide(){
+  if (slideInterval) clearInterval(slideInterval);
+  slideInterval = setInterval(() => {
+    const nextIndex = (current + 1) % slides.length;
+    showSlide(nextIndex);
+  }, 3500); // 3.5 seconds
+}
+
+function resetAutoSlide(){
+  startAutoSlide();
+}
+
+/* NO BUTTON */
 const noBtn = document.getElementById("noBtn");
 function moveNoButton(){
   const x = Math.random()*220 - 110;
@@ -456,6 +476,9 @@ function sayYes(){
   document.getElementById("mainCard").classList.add("glow");
   blurBg.classList.add("on");
 
+  // Optional: pause slideshow so focus is on letter
+  if (slideInterval) clearInterval(slideInterval);
+
   heartRain();
   floatCoupleText();
   fadeInMusic();
@@ -464,14 +487,11 @@ function sayYes(){
     typed = true;
     letterWrap.style.display = "block";
 
-    // Let layout update first
     setTimeout(() => {
-      // Scroll to the letter so typing is visible on mobile
       letterWrap.scrollIntoView({ behavior: "smooth", block: "start" });
 
-      // Start typing after scroll
       setTimeout(() => {
-        typeLetter(LOVE_LETTER_TEXT, 22); // slightly slower for mobile visibility
+        typeLetter(LOVE_LETTER_TEXT, 22);
       }, 850);
 
     }, 200);
