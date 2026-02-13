@@ -30,10 +30,7 @@
     transition:0.3s ease;
   }
 
-  /* Glow pulse after YES */
-  .glow{
-    animation:glowPulse 1.8s ease-in-out infinite;
-  }
+  .glow{ animation:glowPulse 1.8s ease-in-out infinite; }
   @keyframes glowPulse{
     0%,100%{box-shadow:0 18px 55px rgba(255,77,109,0.35);}
     50%{box-shadow:0 22px 75px rgba(255,77,109,0.62);}
@@ -54,7 +51,6 @@
     display:inline-block;
   }
 
-  /* Music buttons */
   .musicRow{
     margin-top:10px;
     display:flex;
@@ -68,7 +64,6 @@
     font-weight:900;
   }
 
-  /* Polaroids */
   .polaroidStage{
     margin:16px auto;
     max-width:470px;
@@ -150,13 +145,11 @@
     font-size:18px;
   }
 
-  /* Heart rain */
   @keyframes fall{
     0%{transform:translateY(0);opacity:1;}
     100%{transform:translateY(100vh);opacity:0;}
   }
 
-  /* Floating text */
   .floatText{
     position:fixed;
     font-weight:900;
@@ -171,7 +164,6 @@
     100%{opacity:0;transform:translateY(-150px) scale(1.03);}
   }
 
-  /* PASSWORD OVERLAY */
   .overlay{
     position:fixed;
     inset:0;
@@ -222,7 +214,6 @@
   .unlock:hover{background:#ff3355;transform:translateY(-2px);}
   #err{color:#b00020;display:none;margin-top:10px;font-size:13px;font-weight:700;}
 
-  /* Love letter — envelope + typing */
   .letterWrap{
     display:none;
     margin-top:16px;
@@ -256,7 +247,6 @@
     color:#ff4d6d;
   }
 
-  /* Soft background blur when YES happens */
   .blurBg{
     position:fixed;
     inset:0;
@@ -277,7 +267,6 @@
 
 <div class="blurBg" id="blurBg"></div>
 
-<!-- PASSWORD -->
 <div class="overlay" id="overlay">
   <div class="lockBox">
     <div style="font-size:34px;">🔒💖</div>
@@ -294,7 +283,6 @@
   </div>
 </div>
 
-<!-- MAIN -->
 <div class="card" id="mainCard" style="display:none; z-index:10;">
   <h1>Hey Asmika 💕</h1>
   <p>You make my days brighter, my heart softer,<br>and my life a little more magical ✨</p>
@@ -334,7 +322,6 @@
     You just made Sandip the happiest person alive!
   </div>
 
-  <!-- LOVE LETTER (hidden) -->
   <div class="letterWrap" id="letterWrap">
     <div class="envelopeTop"></div>
     <div class="letter">
@@ -348,11 +335,10 @@
 </div>
 
 <script>
-/* ===== SETTINGS (already set as you asked) ===== */
 const PASSWORD = "asmika1084";
-const MET_DATE = "2025-03-27T00:00:00+05:45"; // Nepal time
+const MET_DATE = "2025-03-27T00:00:00+05:45";
 
-/* ===== PASSWORD GATE ===== */
+/* PASSWORD */
 const overlay = document.getElementById("overlay");
 const mainCard = document.getElementById("mainCard");
 const pw = document.getElementById("pw");
@@ -365,7 +351,7 @@ function unlock(){
     mainCard.style.display = "block";
     err.style.display = "none";
     startCounter();
-    fadeInMusic(); // tries after user click
+    fadeInMusic();
   } else {
     err.style.display = "block";
     pw.select();
@@ -374,7 +360,7 @@ function unlock(){
 unlockBtn.addEventListener("click", unlock);
 pw.addEventListener("keydown", (e) => { if (e.key === "Enter") unlock(); });
 
-/* ===== MUSIC (fade in) ===== */
+/* MUSIC fade-in */
 const bgm = document.getElementById("bgm");
 const musicBtn = document.getElementById("musicBtn");
 const pauseBtn = document.getElementById("pauseBtn");
@@ -399,7 +385,7 @@ pauseBtn.addEventListener("click", () => {
   bgm.pause();
 });
 
-/* ===== SINCE WE MET (days + hours) ===== */
+/* Counter */
 const sincePill = document.getElementById("sincePill");
 function formatDuration(ms){
   const totalSec = Math.floor(ms / 1000);
@@ -418,7 +404,7 @@ function startCounter(){
   setInterval(tick, 30000);
 }
 
-/* ===== SLIDES ===== */
+/* Slides */
 const slides = document.querySelectorAll(".polaroid");
 let current = 0;
 function changeSlide(step){
@@ -427,7 +413,7 @@ function changeSlide(step){
   slides[current].classList.add("active");
 }
 
-/* ===== NO BUTTON (desktop + mobile) ===== */
+/* No button */
 const noBtn = document.getElementById("noBtn");
 function moveNoButton(){
   const x = Math.random()*220 - 110;
@@ -440,7 +426,7 @@ noBtn.addEventListener("touchstart", function(e){
   moveNoButton();
 }, { passive:false });
 
-/* ===== YES: glow + heart rain + floating text + love letter typing + blur ===== */
+/* YES: auto scroll + typing visible */
 const blurBg = document.getElementById("blurBg");
 const letterWrap = document.getElementById("letterWrap");
 const typingEl = document.getElementById("typing");
@@ -474,13 +460,25 @@ function sayYes(){
   floatCoupleText();
   fadeInMusic();
 
-  // show + type letter once
   if (!typed){
     typed = true;
     letterWrap.style.display = "block";
-    typeLetter(LOVE_LETTER_TEXT, 18);
+
+    // Let layout update first
+    setTimeout(() => {
+      // Scroll to the letter so typing is visible on mobile
+      letterWrap.scrollIntoView({ behavior: "smooth", block: "start" });
+
+      // Start typing after scroll
+      setTimeout(() => {
+        typeLetter(LOVE_LETTER_TEXT, 22); // slightly slower for mobile visibility
+      }, 850);
+
+    }, 200);
+
   } else {
     letterWrap.style.display = "block";
+    letterWrap.scrollIntoView({ behavior: "smooth", block: "start" });
   }
 }
 
